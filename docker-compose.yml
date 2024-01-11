@@ -8,5 +8,5 @@ services:
     volumes:
       - ./src:/var/www/html
     ports:
-      - "8080:80"
+      - "31257:80"
     restart: unless-stopped
