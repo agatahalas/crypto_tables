@@ -1,7 +1,7 @@
 name: crypto-tables
 recipe: lamp
 config:
-  webroot: .
+  webroot: src
 php:
   version: 8.1
   ini:

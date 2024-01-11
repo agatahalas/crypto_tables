@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Tables</title>
     <link rel="shortcut icon" href="assets/img//bitcoin.png">
+
     <!-- Dołącz pliki DataTables -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/v/zf/jq-3.7.0/dt-1.13.8/datatables.min.css" rel="stylesheet">
@@ -25,11 +26,11 @@
 
 <div class="grid-container">
     <div class="grid-x grid-padding-x">
-        <div class="cell small-12 medium-3">
+        <div class="cell small-12 medium-2">
             <label for="maxPriceInput">Max Price $:</label>
             <input type="number" id="maxPriceInput" step="0.01" placeholder="0.50">
         </div>
-        <div class="cell small-12 medium-3">
+        <div class="cell small-12 medium-2">
             <label for="minPriceInput">Min Price $:</label>
             <input type="number" id="minPriceInput" step="0.01" placeholder="0.01">
         </div>
@@ -45,6 +46,12 @@
             </div>
         </div>
     </div>
+    <div class="grid-x grid-padding-x">
+        <div class="cell small-12 medium-3">
+            <p class="text-left">Last update: <span id="date-of-data"></span></p>
+            <button class="submit primary button" id="refresh-data" disabled>Refresh data</button>
+        </div>
+    </div>
 </div>
 
 <table id="cryptoTable" class="display" style="width:100%; margin-top: 20px;">
@@ -52,9 +59,9 @@
     <tr>
         <th>#</th>
         <th>Name</th>
-        <th>Market Cap (billion USD)</th>
-        <th>Current Price USD</th>
-        <th>Market Cap Change 24h (million USD)</th>
+        <th>Current Price</th>
+        <th>Market Cap (billion)</th>
+        <th>Market Cap Change 24h (million)</th>
         <th>Market Cap Change % 24h</th>
         <th>1h %</th>
         <th>24h %</th>
@@ -82,7 +89,6 @@
 
 <!-- Dołącz Twoje pliki JavaScript -->
 <script src="assets/js/script.js"></script>
-<!--<script src="assets/js/script2.js"></script>-->
 
 </body>
 </html>
