@@ -1,0 +1,9 @@
+name: crypto-tables
+recipe: lamp
+config:
+  webroot: .
+php:
+  version: 7.4
+  ini:
+    display_errors: 1
+    error_reporting: E_ALL

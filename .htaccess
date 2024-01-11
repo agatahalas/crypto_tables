@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Redirect HTTPS to HTTP
+RewriteCond %{HTTPS} on
+RewriteRule ^ http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# CORS configuration
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "http://crypto-tables.lndo.site"
+</IfModule>
+
