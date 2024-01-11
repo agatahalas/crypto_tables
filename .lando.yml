@@ -3,7 +3,7 @@ recipe: lamp
 config:
   webroot: .
 php:
-  version: 7.4
+  version: 8.1
   ini:
     display_errors: 1
     error_reporting: E_ALL

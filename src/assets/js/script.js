@@ -14,7 +14,9 @@ $(document).ready(function () {
             data: 'name',
             render: function (data, type, row) {
               // display name and image
-              return `<h6><img src="${row.image}" width="20" height="20" /> ${data} <small>${row.symbol.toUpperCase()}</small></h6>`;
+              return `<h6><img src="${row.image}" width="20" height="20" /> 
+              <a href="https://www.coingecko.com/en/coins/${row.id}" target="_blank">${data}</a> 
+              <small>${row.symbol.toUpperCase()}</small></h6>`;
             },
           },
           {
