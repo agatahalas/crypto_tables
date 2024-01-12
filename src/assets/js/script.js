@@ -94,6 +94,20 @@ $(document).ready(function () {
         $('#minPriceInput').val('').trigger('keyup');
       });
 
+      // Custom predefined filters.
+      $('#newCheapAlts').on('click', function () {
+        dataTable.order([[12, 'asc'], [11, 'asc'], [2, 'asc']]).draw();
+        $('#maxPriceInput').val('0.90').trigger('keyup');
+        $('#cryptoTable_filter input').val('no-data').trigger('keyup');
+      });
+
+      // Reset all filters
+      $('#resetAllFilters').on('click', function () {
+        dataTable.order([[0, 'asc']]).draw();
+        $('#maxPriceInput').val('').trigger('keyup');
+        $('#cryptoTable_filter input').val('').trigger('keyup');
+      });
+
     })
     .catch(error => console.error('Wystąpił błąd podczas odczytu danych:', error));
 });
@@ -134,7 +148,7 @@ function formatNumber(number, event_type, digits_max = 2, data_type = 'number') 
       // Określ, ile cyfr znaczących chcesz zachować. W tym przypadku 4.
       // Cyfry znaczące to przy małych liczbach wszytskie cyfry poza zerami wiodącymi.
       // 0.0003071716 -> 0.0003071
-      formattedNumber = Number.parseFloat(number).toPrecision(4);
+      formattedNumber = Number.parseFloat(number).toPrecision(2);
     }
     if (data_type !== 'number') {
       if (data_type === 'percent') {
@@ -280,12 +294,16 @@ function initializeDataTable(data) {
       {width: '5%', targets: 10},
       {width: '5%', targets: 11},
       {width: '5%', targets: 12},
+      { responsivePriority: 1, targets: 0 }, // Pierwsza kolumna ma najwyższy priorytet responsywności
+      { responsivePriority: 1, targets: 1 },
+      { responsivePriority: 1, targets: 2 },
+      { responsivePriority: 1, targets: 3 },
     ],
     order: [[0, 'asc']], // Sortuj po market_cap_rank rosnąco
     // pageLength: 100, // Wyświetlaj 100 rekordów na stronie
     fixedHeader: true, // Włącz sticky header
     paging: false, // Wyłącz paginację
-    // responsive: true, // Włącz responsywność
+    responsive: true, // Włącz responsywność
     //  autoWidth: false, // Ustaw auto szerokosc dla kolumn
     searching: true,
     language: {

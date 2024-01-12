@@ -54,7 +54,11 @@
                 </div>
             </div>
 
-            <div class="cell small-12 medium-6"></div>
+            <div class="cell small-12 medium-6 medium-text-center">
+                <h5>Predefined filters</h5>
+                <button id="newCheapAlts" class="custom-filter submit primary button">New cheap alts</button>
+                <button id="resetAllFilters" class="custom-filter submit primary button">Reset all</button>
+            </div>
             <div class="cell small-12 medium-2 medium-text-right">
                 <h5>Switch currency</h5>
                 <div class="switch large">
