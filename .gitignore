@@ -1,3 +1,4 @@
 # ignoruj pliki o nazwie .DS_Store wszedzie
 **/.DS_Store
 .idea
+.env

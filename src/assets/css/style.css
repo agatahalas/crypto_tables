@@ -1,0 +1,9 @@
+footer {
+    background-color: #f4f4f4;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    height: 50px;
+}
