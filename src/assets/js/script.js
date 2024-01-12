@@ -101,7 +101,7 @@ $(document).ready(function () {
 function applyColorToNumberAndFormat(number, type, digits_max = 2, data_type = 'number') {
   if (number == null) {
     if (type === 'sort' || type === 'type') {
-      return Number.POSITIVE_INFINITY;
+      return Number.NEGATIVE_INFINITY;
     } else {
       return 'no-data';
     }
@@ -118,7 +118,7 @@ function applyColorToNumberAndFormat(number, type, digits_max = 2, data_type = '
 function formatNumber(number, event_type, digits_max = 2, data_type = 'number') {
   if (number == null) {
     if (event_type === 'sort' || event_type === 'type') {
-      return Number.POSITIVE_INFINITY;
+      return Number.NEGATIVE_INFINITY;
     } else {
       return 'no-data';
     }
