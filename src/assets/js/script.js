@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  // Set current year in footer.
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
 
   getDataFromCoingecko()
     .then(data => {
@@ -262,12 +264,30 @@ function initializeDataTable(data) {
         },
       }
     ],
+    columnDefs: [
+      // 65%
+      {width: '2%', targets: 0},
+      {width: '20%', targets: 1},
+      {width: '10%', targets: 2},
+      {width: '13%', targets: 3},
+      {width: '15%', targets: 4},
+      {width: '5%', targets: 5}, // MCap Change 24h %
+      // 35%
+      {width: '5%', targets: 6},
+      {width: '5%', targets: 7},
+      {width: '5%', targets: 8},
+      {width: '5%', targets: 9},
+      {width: '5%', targets: 10},
+      {width: '5%', targets: 11},
+      {width: '5%', targets: 12},
+      // { className: 'cell small-12', targets: '_all' },
+    ],
     order: [[0, 'asc']], // Sortuj po market_cap_rank rosnąco
-    pageLength: 100, // Wyświetlaj 100 rekordów na stronie
+    // pageLength: 100, // Wyświetlaj 100 rekordów na stronie
     fixedHeader: true, // Włącz sticky header
     paging: false, // Wyłącz paginację
-    responsive: true, // Włącz responsywność
-    autoWidth: true, // Ustaw auto szerokosc dla kolumn
+    // responsive: true, // Włącz responsywność
+    //  autoWidth: false, // Ustaw auto szerokosc dla kolumn
     searching: true,
   });
 }
