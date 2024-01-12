@@ -3,7 +3,7 @@ $(document).ready(function () {
   getDataFromCoingecko()
     .then(data => {
       let dataTable = initializeDataTable(data);
-      const originalData= dataTable.rows().data().toArray();
+      const originalData = dataTable.rows().data().toArray();
 
       // Dodaj obsługę filtra max_price, min_price
       $('#maxPriceInput, #minPriceInput').on('keyup', function () {
@@ -47,7 +47,7 @@ $(document).ready(function () {
         }
       });
 
-      // Obsługa zmiany stanu przycisku switchera
+      // Obsługa zmiany currency switchera
       $('#currencySwitcher').on('change', function () {
         var maxPrice = parseFloat($('#maxPriceInput').val());
         var minPrice = parseFloat($('#minPriceInput').val());
@@ -56,7 +56,7 @@ $(document).ready(function () {
         if ($(this).is(':checked')) {
           getDataFromCoingecko('btc')
             .then(data => {
-              var currentFilteredData= dataTable.data().toArray();
+              var currentFilteredData = dataTable.data().toArray();
               // odfiltruj z tablicy data rekordy, które nie są w currentFilteredData
               data = data.filter(function (row) {
                 return currentFilteredData.some(function (currentRow) {
@@ -84,32 +84,73 @@ $(document).ready(function () {
             });
         }
       });
+
+      // Dodaj obsługę przycisku resetującego
+      $('#resetFilters').on('click', function () {
+        // Resetuj wartości pól filtrowania
+        $('#maxPriceInput').val('').trigger('keyup');
+        $('#minPriceInput').val('').trigger('keyup');
+      });
+
     })
     .catch(error => console.error('Wystąpił błąd podczas odczytu danych:', error));
 });
 
-function applyColorToNumberAndFormat(number, type, digits_max = 2) {
+function applyColorToNumberAndFormat(number, type, digits_max = 2, data_type = 'number') {
   if (number == null) {
-    return 'no-data';
+    if (type === 'sort' || type === 'type') {
+      return Number.POSITIVE_INFINITY;
+    } else {
+      return 'no-data';
+    }
   }
 
   if (type === 'display' || type === 'filter') {
     var color = number >= 0 ? 'green' : 'red';
-    var formattedNumber = formatNumber(number, digits_max);
+    var formattedNumber = formatNumber(number, type, digits_max, data_type);
     return `<span style="color: ${color};">${formattedNumber}</span>`;
   }
   return number;
 }
 
-function formatNumber(number, digits_max = 2) {
+function formatNumber(number, event_type, digits_max = 2, data_type = 'number') {
   if (number == null) {
-    return 'no-data';
+    if (event_type === 'sort' || event_type === 'type') {
+      return Number.POSITIVE_INFINITY;
+    } else {
+      return 'no-data';
+    }
   }
 
-  return number.toLocaleString('us-US', {
-    useGrouping: true,
-    maximumFractionDigits: digits_max,
-  });
+  if (event_type === 'display') {
+    let formattedNumber = number.toLocaleString('pl-PL', {
+      useGrouping: true,
+      maximumFractionDigits: digits_max,
+    });
+    // For very small numbers like 6.31916e-7 - display number instead 0.
+    if (formattedNumber === "0" || formattedNumber === "-0") {
+      // Określ, ile cyfr znaczących chcesz zachować. W tym przypadku 4.
+      // Cyfry znaczące to przy małych liczbach wszytskie cyfry poza zerami wiodącymi.
+      // 0.0003071716 -> 0.0003071
+      formattedNumber = Number.parseFloat(number).toPrecision(4);
+    }
+    if (data_type !== 'number') {
+      if (data_type === 'percent') {
+        formattedNumber += '%';
+      }
+      if (data_type === 'finance') {
+        var currencySwitcher = $('#currencySwitcher').is(':checked');
+        if (currencySwitcher) {
+          formattedNumber = '₿ ' + formattedNumber;
+        } else {
+          formattedNumber = '$ ' + formattedNumber;
+        }
+      }
+    }
+    return formattedNumber;
+  } else {
+    return number;
+  }
 }
 
 /**
@@ -138,7 +179,7 @@ function getDataFromCoingecko(currency = 'usd', cache_valid_time = 60, order = '
 }
 
 function initializeDataTable(data) {
-  const dataTable = $('#cryptoTable').DataTable({
+  return $('#cryptoTable').DataTable({
     data: data,
     columns: [
       {data: 'market_cap_rank'},
@@ -154,19 +195,14 @@ function initializeDataTable(data) {
       {
         data: 'current_price',
         render: function (data, type, row) {
-          const formattedData = formatNumber(data, 5);
-          if (formattedData === "0") {
-            return data;
-          } else {
-            return formattedData;
-          }
+          return formatNumber(data, type, 5, 'finance');
         },
       },
       {
         data: 'market_cap',
         render: function (data, type, row) {
           data = data / 1e9; // w mld usd
-          data = formatNumber(data, 2);
+          data = formatNumber(data, type, 3, 'finance');
           return data;
         },
       },
@@ -174,55 +210,55 @@ function initializeDataTable(data) {
         data: 'market_cap_change_24h',
         render: function (data, type, row) {
           data = data / 1e6; // w mln usd
-          return applyColorToNumberAndFormat(data, type);
+          return applyColorToNumberAndFormat(data, type, 2, 'finance');
         },
       },
       {
         data: 'market_cap_change_percentage_24h',
         render: function (data, type, row) {
-          return applyColorToNumberAndFormat(data, type);
+          return applyColorToNumberAndFormat(data, type, 2, 'percent');
         },
       },
       {
         data: 'price_change_percentage_1h_in_currency',
         render: function (data, type, row) {
-          return applyColorToNumberAndFormat(data, type);
+          return applyColorToNumberAndFormat(data, type, 2, 'percent');
         },
       },
       {
         data: 'price_change_percentage_24h_in_currency',
         render: function (data, type, row) {
-          return applyColorToNumberAndFormat(data, type);
+          return applyColorToNumberAndFormat(data, type, 2, 'percent');
         },
       },
       {
         data: 'price_change_percentage_7d_in_currency',
         render: function (data, type, row) {
-          return applyColorToNumberAndFormat(data, type);
+          return applyColorToNumberAndFormat(data, type, 2, 'percent');
         },
       },
       {
         data: 'price_change_percentage_14d_in_currency',
         render: function (data, type, row) {
-          return applyColorToNumberAndFormat(data, type);
+          return applyColorToNumberAndFormat(data, type, 2, 'percent');
         },
       },
       {
         data: 'price_change_percentage_30d_in_currency',
         render: function (data, type, row) {
-          return applyColorToNumberAndFormat(data, type);
+          return applyColorToNumberAndFormat(data, type, 2, 'percent');
         },
       },
       {
         data: 'price_change_percentage_200d_in_currency',
         render: function (data, type, row) {
-          return applyColorToNumberAndFormat(data, type);
+          return applyColorToNumberAndFormat(data, type, 2, 'percent');
         },
       },
       {
         data: 'price_change_percentage_1y_in_currency',
         render: function (data, type, row) {
-          return applyColorToNumberAndFormat(data, type);
+          return applyColorToNumberAndFormat(data, type, 2, 'percent');
         },
       }
     ],
@@ -234,6 +270,4 @@ function initializeDataTable(data) {
     autoWidth: true, // Ustaw auto szerokosc dla kolumn
     searching: true,
   });
-
-  return dataTable;
 }

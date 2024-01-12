@@ -18,23 +18,30 @@
     <div class="grid-container">
         <div class="grid-x grid-padding-x">
             <div class="cell small-12">
-                <h1 class="text-center">$$$ Crypto Tables $$$</h1>
+                <h1 class="text-center"><img src="assets/img/bitcoin.png" width="30" height="30"> cryptoTables</h1>
             </div>
         </div>
     </div>
 </header>
 
 <div class="grid-container">
-    <div class="grid-x grid-padding-x">
-        <div class="cell small-12 medium-2">
-            <label for="maxPriceInput">Max Price $:</label>
-            <input type="number" id="maxPriceInput" step="0.01" placeholder="0.50">
+    <div class="grid-x grid-padding-x align-middle">
+        <div class="cell small-12 medium-3">
+            <div class="input-group">
+                <span class="input-group-label" style="width:45%">MAX price $</span>
+                <input class="input-group-field" type="number" id="maxPriceInput" step="0.01" placeholder="0.50">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-label" style="width:45%">MIN price $</span>
+                <input class="input-group-field" type="number" id="minPriceInput" step="0.01" placeholder="0.50">
+            </div>
         </div>
         <div class="cell small-12 medium-2">
-            <label for="minPriceInput">Min Price $:</label>
-            <input type="number" id="minPriceInput" step="0.01" placeholder="0.01">
+            <button class="submit primary button" id="resetFilters">Reset</button>
         </div>
     </div>
+
     <div class="grid-x grid-padding-x">
         <div class="cell small-12 medium-3">
             <div class="switch large">
@@ -63,13 +70,13 @@
         <th>Market Cap (billion)</th>
         <th>Market Cap Change 24h (million)</th>
         <th>Market Cap Change % 24h</th>
-        <th>1h %</th>
-        <th>24h %</th>
-        <th>7d %</th>
-        <th>14d %</th>
-        <th>30d %</th>
-        <th>200d %</th>
-        <th>1y %</th>
+        <th>1h</th>
+        <th>24h</th>
+        <th>7d</th>
+        <th>14d</th>
+        <th>30d</th>
+        <th>200d</th>
+        <th>1y</th>
     </tr>
     <!-- Nagłówki kolumn będą renderowane tutaj -->
     </thead>
