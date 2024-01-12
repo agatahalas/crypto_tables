@@ -15,51 +15,57 @@
 <body>
 
 <header>
-    <div class="grid-container">
-        <div class="grid-x grid-padding-x">
-            <div class="cell small-12">
+    <div class="grid-container fluid">
+        <div class="grid-x">
+            <div class="cell small-3"></div>
+            <div class="cell small-6">
                 <h1 class="text-center"><img src="assets/img/bitcoin.png" width="30" height="30"> cryptoTables</h1>
+            </div>
+            <div class="cell small-3">
+                <h6 class="subheader text-right" style="font-weight: 700">Updated: <span id="date-of-data"></span></h6>
             </div>
         </div>
     </div>
 </header>
 
 <main class="grid-container fluid">
-    <div class="grid-container actions-container">
-        <div class="grid-x grid-padding-x align-middle">
-            <div class="cell small-12 medium-3">
-                <div class="input-group">
-                    <span class="input-group-label" style="width:45%">MAX price $</span>
-                    <input class="input-group-field" type="number" id="maxPriceInput" step="0.01" placeholder="0.50">
-                </div>
-
-                <div class="input-group">
-                    <span class="input-group-label" style="width:45%">MIN price $</span>
-                    <input class="input-group-field" type="number" id="minPriceInput" step="0.01" placeholder="0.50">
-                </div>
-            </div>
-            <div class="cell small-12 medium-2">
-                <button class="submit primary button" id="resetFilters">Reset</button>
-            </div>
-        </div>
-
+    <div class="actions-container">
         <div class="grid-x grid-padding-x">
-            <div class="cell small-12 medium-3">
+            <div class="cell small-12 medium-4">
+                <div class="grid-x grid-padding-x align-middle">
+                    <div class="cell small-10">
+                        <h5>Filters</h5>
+                        <div class="input-group">
+                            <span class="input-group-label" style="width:45%">MAX price $</span>
+                            <input class="input-group-field" type="number" id="maxPriceInput" step="0.01"
+                                   placeholder="0.50">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-label" style="width:45%">MIN price $</span>
+                            <input class="input-group-field" type="number" id="minPriceInput" step="0.01"
+                                   placeholder="0.50">
+                        </div>
+                    </div>
+                    <div class="cell small-2">
+                        <h5 class="invisible">Reset</h5>
+                        <button class="submit primary button" id="resetFilters">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cell small-12 medium-6"></div>
+            <div class="cell small-12 medium-2 medium-text-right">
+                <h5>Switch currency</h5>
                 <div class="switch large">
                     <input class="switch-input" id="currencySwitcher" type="checkbox" name="currencySwitcher">
                     <label class="switch-paddle" for="currencySwitcher">
-                        <span class="switch-active" aria-hidden="true"
-                              style="font-size: 0.8rem; color: white">BTC</span>
+                                        <span class="switch-active" aria-hidden="true"
+                                              style="font-size: 0.8rem; color: white">BTC</span>
                         <span class="switch-inactive" aria-hidden="true"
                               style="font-size: 0.8rem;  color: black">USD</span>
                     </label>
                 </div>
-            </div>
-        </div>
-        <div class="grid-x grid-padding-x">
-            <div class="cell small-12 medium-3">
-                <p class="text-left">Last update: <span id="date-of-data"></span></p>
-                <button class="submit primary button" id="refresh-data" disabled>Refresh data</button>
             </div>
         </div>
     </div>

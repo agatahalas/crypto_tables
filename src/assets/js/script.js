@@ -280,7 +280,6 @@ function initializeDataTable(data) {
       {width: '5%', targets: 10},
       {width: '5%', targets: 11},
       {width: '5%', targets: 12},
-      // { className: 'cell small-12', targets: '_all' },
     ],
     order: [[0, 'asc']], // Sortuj po market_cap_rank rosnąco
     // pageLength: 100, // Wyświetlaj 100 rekordów na stronie
@@ -289,5 +288,9 @@ function initializeDataTable(data) {
     // responsive: true, // Włącz responsywność
     //  autoWidth: false, // Ustaw auto szerokosc dla kolumn
     searching: true,
+    language: {
+      search: '', // Usunięcie etykiety z pola wyszukiwania
+      searchPlaceholder: 'Search...', // Dodanie placeholdera
+    },
   });
 }

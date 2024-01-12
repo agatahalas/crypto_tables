@@ -4,6 +4,6 @@ footer {
     margin-top: 20px;
 }
 
-.actions-container {
-    padding: 20px 0;
+.dataTables_wrapper .dataTables_filter {
+    height: 50px;
 }
